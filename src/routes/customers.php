@@ -135,5 +135,6 @@ $app->put('/api/customer/{id}', function(Request $req, Response $res){
         echo '{msg:{"text":"customer updated!"}}';
     }catch(Exception $e){
         echo '{"error": {"text": '.$e->getMessage().'}}';
+        
     }
 });
