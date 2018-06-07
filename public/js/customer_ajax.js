@@ -8,6 +8,8 @@ function processCustomers(str, outputElement){
         outputElement.innerHTML +=  '<div class="card" style="width:30%;margin:15px;display:inline-block;">'
                                         + '<div class="card-body"'
                                         + '<h5 class="card-title">'+customer.first_name+'</h5>'
+                                        + '<span><a class="btn btn-sm btn-danger float-right" style="color:white;" onclick="deleteCustomer('+customer.id+')">Delete</a></span>'
+                                        + '<div class="clearfix"></div>'
                                         + '<h6 class="card-subtitle mb-2 text-muted">'+customer.last_name+'</h6>'
                                         + '<hr>'
                                         + '<p class="card-text">'+customer.email+'</p>'
@@ -15,7 +17,7 @@ function processCustomers(str, outputElement){
                                         + '<hr>'
                                         + '<p class="card-text">'+customer.address+'</p>'
                                         + '<p class="card-text">'+customer.city+'</p>'
-                                        + '<p class="card-text">'+customer.state+'</p>'
+                                        + '<p class="card-text">'+customer.state+'<span class="float-right">ID: '+customer.id+'</span></p>'
                                     + '</div></div>';
     });
 }
@@ -47,4 +49,17 @@ function showCustomer(id){
         xmlHttp.open("GET","http://restful.api/api/customer/" + id);
         xmlHttp.send();
     }
+}
+
+function deleteCustomer(id){
+    xmlHttp = new XMLHttpRequest();
+
+    xmlHttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log('User with id: '+id+' deleted!');
+            showCustomer('');
+        }
+    }
+    xmlHttp.open("DELETE","http://restful.api/api/customer/"+id);
+    xmlHttp.send();
 }

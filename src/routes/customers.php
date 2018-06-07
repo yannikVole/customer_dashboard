@@ -75,11 +75,11 @@ $app->post('/api/customer/add', function(Request $req, Response $res){
 
         $stmt->execute();
 
-        echo 'Customer Added! <a href="http://restful.api/">Back</a>';
+        return $this->view->render($res,'index.php');
 
 
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}}';
+        $res->getBody()->write($e);
     }
     return $res;
 });
